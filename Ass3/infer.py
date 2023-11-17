@@ -82,6 +82,8 @@ class UNetDataClass(Dataset):
         images_list = [images_path + image_name for image_name in images_list]
         masks_list = [masks_path + mask_name for mask_name in masks_list]
         
+	print(images_list)
+	print(masks_list)
         self.images_list = images_list
         self.masks_list = masks_list
         self.transform = transform
@@ -139,7 +141,7 @@ transform = Compose([
 
 
 images_path = "/kaggle/working/Unet_DL3/Ass3/kaggle/input/bkai-igh-neopolyp/train/train/"
-masks_path =  "/kaggle/working/Unet_DL3/Ass3/kaggle/input/bkai-igh-neopolyp/train_gt/"
+masks_path =  "/kaggle/working/Unet_DL3/Ass3/kaggle/input/bkai-igh-neopolyp/train_gt/train_gt/"
 unet_dataset = UNetDataClass(images_path, masks_path, transform)
 
 train_size = 0.8
