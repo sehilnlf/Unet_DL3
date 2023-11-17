@@ -58,7 +58,7 @@ batch_size = 4
 display_step = 50
 
 # Model path
-checkpoint_path = 'kaggle/working/unet_model_out.pth'
+checkpoint_path = '/kaggle/working/Unet_DL3/Ass3/kaggle/working/unet_model_out.pth'
 pretrained_path = "kaggle/input/unet-model/unet_model1.pth"
 # Initialize lists to keep track of loss and accuracy
 loss_epoch_array = []
@@ -138,8 +138,8 @@ transform = Compose([
 # In[130]:
 
 
-images_path = "kaggle/input/bkai-igh-neopolyp/train/train/"
-masks_path =  "kaggle/input/bkai-igh-neopolyp/train_gt/train_gt/"
+images_path = "/kaggle/working/Unet_DL3/Ass3/kaggle/input/bkai-igh-neopolyp/train/train/"
+masks_path =  "/kaggle/working/Unet_DL3/Ass3/kaggle/input/bkai-igh-neopolyp/train_gt/"
 unet_dataset = UNetDataClass(images_path, masks_path, transform)
 
 train_size = 0.8
@@ -530,8 +530,6 @@ learing_rate_scheduler = lr_scheduler.StepLR(optimizer, step_size=4, gamma=0.6)
 
 # In[154]:
 
-
-checkpoint_path = 'kaggle/working/unet_model_out.pth'
 save_model(model, optimizer, checkpoint_path)
 
 
