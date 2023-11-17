@@ -33,10 +33,6 @@ import wandb
 
 # In[120]:
 
-
-get_ipython().system('nvidia-smi -L')
-
-
 # In[121]:
 
 
