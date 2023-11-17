@@ -82,8 +82,8 @@ class UNetDataClass(Dataset):
         images_list = [images_path + image_name for image_name in images_list]
         masks_list = [masks_path + mask_name for mask_name in masks_list]
         
-	print(images_list)
-	print(masks_list)
+        print(images_list)
+        print(masks_list)
         self.images_list = images_list
         self.masks_list = masks_list
         self.transform = transform
