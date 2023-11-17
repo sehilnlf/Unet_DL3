@@ -541,8 +541,6 @@ save_model(model, optimizer, checkpoint_path)
 # In[155]:
 
 
-pip install wandb --user
-
 
 # In[156]:
 
