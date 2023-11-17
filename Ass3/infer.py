@@ -37,7 +37,8 @@ import wandb
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-device
+if torch.cuda.is_available():
+    print('cuda')
 
 
 # # Parameters
