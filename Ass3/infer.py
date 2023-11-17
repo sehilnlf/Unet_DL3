@@ -14,7 +14,7 @@ import os
 import pandas as pd
 import numpy as np
 from PIL import Image
-import cv2
+# import cv2
 import time
 import imageio
 import matplotlib.pyplot as plt
@@ -508,15 +508,15 @@ model = smp.Unet(
 # In[152]:
 
 
-model = nn.DataParallel(model, device_ids=[0,1])  # Now cuda:1 is the primary device
-model = model.to('cuda:0')  # Move model to cuda:1
+# model = nn.DataParallel(model, device_ids=[0,1])  # Now cuda:1 is the primary device
+# model = model.to('cuda:0')  # Move model to cuda:1
 # model = model.to('cpu')
 
 
 # In[153]:
 
 
-weights = torch.Tensor([[0.4, 0.55, 0.05]]).cuda()
+weights = torch.Tensor([[0.4, 0.55, 0.05]])
 loss_function = CEDiceLoss(weights)
 
 # Define the optimizer (Adam optimizer)
