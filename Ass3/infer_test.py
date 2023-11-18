@@ -537,7 +537,59 @@ save_model(model, optimizer, checkpoint_path)
 
 # In[155]:
 
+# In[156]:
 
+
+wandb.login(
+    # set the wandb project where this run will be logged
+    key = "0a472d46d83f56d0046d090772397e587c7468f3",
+)
+
+
+# In[157]:
+
+
+import wandb
+# run = wandb.init(reinit=True)
+run = wandb.init(project="PolypSegment")
+#     for y in range (100):
+#         wandb.log({"metric": x+y})
+#     run.finish()
+
+
+# In[161]:
+
+
+# wandb.init(
+#     project = "PolypSegment"
+# )
+
+# with tf.device('/CPU:0'):
+# Training loop
+train_loss_array = []
+
+test_loss_array = []
+last_loss = 9999999999999
+for epoch in range(epochs):
+    train_loss_epoch = 0
+    test_loss_epoch = 0
+    (train_loss_epoch, test_loss_epoch) = train(train_dataloader, 
+                                              valid_dataloader, 
+                                              learing_rate_scheduler, epoch, display_step)
+
+    if test_loss_epoch < last_loss:
+        save_model(model, optimizer, checkpoint_path)
+        last_loss = test_loss_epoch
+#             break
+        
+    learing_rate_scheduler.step()
+    train_loss_array.append(train_loss_epoch)
+    test_loss_array.append(test_loss_epoch)
+    wandb.log({"Train loss": train_loss_epoch, "Valid loss": test_loss_epoch})
+#     train_accuracy.append(test(train_loader))
+#     valid_accuracy.append(test(test_loader))
+#     print("Epoch {}: loss: {:.4f}, train accuracy: {:.4f}, valid accuracy:{:.4f}".format(epoch + 1, 
+#                                         train_loss_array[-1], train_accuracy[-1], valid_accuracy[-1]))
 # # Plot the learning cure
 
 # **Infer**
