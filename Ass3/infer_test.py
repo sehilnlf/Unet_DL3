@@ -510,8 +510,8 @@ model = smp.Unet(
 # In[152]:
 
 
-# model = nn.DataParallel(model, device_ids=[0,1])  # Now cuda:1 is the primary device
-# model = model.to('cuda:0')  # Move model to cuda:1
+model = nn.DataParallel(model, device_ids=[0,1])  # Now cuda:1 is the primary device
+model = model.to('cuda:0')  # Move model to cuda:1
 # model = model.to('cpu')
 
 
