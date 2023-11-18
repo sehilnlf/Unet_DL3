@@ -50,7 +50,7 @@ if torch.cuda.is_available():
 num_classes = 3
 
 # Number of epoch
-epochs = 15
+epochs = 40
 
 # Hyperparameters for training 
 learning_rate = 2e-04
