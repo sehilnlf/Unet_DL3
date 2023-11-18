@@ -538,62 +538,6 @@ save_model(model, optimizer, checkpoint_path)
 # In[155]:
 
 
-
-# In[156]:
-
-
-wandb.login(
-    # set the wandb project where this run will be logged
-    key = "0a472d46d83f56d0046d090772397e587c7468f3",
-)
-
-
-# In[157]:
-
-
-import wandb
-# run = wandb.init(reinit=True)
-run = wandb.init(project="PolypSegment")
-#     for y in range (100):
-#         wandb.log({"metric": x+y})
-#     run.finish()
-
-
-# In[161]:
-
-
-# wandb.init(
-#     project = "PolypSegment"
-# )
-
-# with tf.device('/CPU:0'):
-# Training loop
-train_loss_array = []
-
-test_loss_array = []
-last_loss = 9999999999999
-for epoch in range(epochs):
-    train_loss_epoch = 0
-    test_loss_epoch = 0
-    (train_loss_epoch, test_loss_epoch) = train(train_dataloader, 
-                                              valid_dataloader, 
-                                              learing_rate_scheduler, epoch, display_step)
-
-    if test_loss_epoch < last_loss:
-        save_model(model, optimizer, checkpoint_path)
-        last_loss = test_loss_epoch
-#             break
-        
-    learing_rate_scheduler.step()
-    train_loss_array.append(train_loss_epoch)
-    test_loss_array.append(test_loss_epoch)
-    wandb.log({"Train loss": train_loss_epoch, "Valid loss": test_loss_epoch})
-#     train_accuracy.append(test(train_loader))
-#     valid_accuracy.append(test(test_loader))
-#     print("Epoch {}: loss: {:.4f}, train accuracy: {:.4f}, valid accuracy:{:.4f}".format(epoch + 1, 
-#                                         train_loss_array[-1], train_accuracy[-1], valid_accuracy[-1]))
-
-
 # # Plot the learning cure
 
 # **Infer**
@@ -687,7 +631,7 @@ class UNetTestDataClass(Dataset):
 # In[111]:
 
 
-path = 'kaggle/input/bkai-igh-neopolyp/test/test/'
+path = '/kaggle/working/Unet_DL3/Ass3/kaggle/input/bkai-igh-neopolyp/test/test/'
 unet_test_dataset = UNetTestDataClass(path, transform)
 test_dataloader = DataLoader(unet_test_dataset, batch_size=8, shuffle=True)
 
@@ -730,8 +674,8 @@ for i in range(5):
 
 
 model.eval()
-if not os.path.isdir("kaggle/working/predicted_masks"):
-    os.mkdir("kaggle/working/predicted_masks")
+if not os.path.isdir("/kaggle/working/predicted_masks"):
+    os.mkdir("/kaggle/working/predicted_masks")
 for _, (img, path, H, W) in enumerate(test_dataloader):
     a = path
     b = img
@@ -744,7 +688,7 @@ for _, (img, path, H, W) in enumerate(test_dataloader):
         image_id = a[i].split('/')[-1].split('.')[0]
         filename = image_id + ".png"
         mask2img = Resize((h[i].item(), w[i].item()), interpolation=InterpolationMode.NEAREST)(ToPILImage()(F.one_hot(torch.argmax(predicted_mask[i], 0)).permute(2, 0, 1).float()))
-        mask2img.save(os.path.join("kaggle/working/predicted_masks/", filename))
+        mask2img.save(os.path.join("/kaggle/working/predicted_masks/", filename))
 
 
 # In[116]:
@@ -793,7 +737,7 @@ def mask2string(dir):
     return r
 
 
-MASK_DIR_PATH = 'kaggle/working/predicted_masks' # change this to the path to your output mask folder
+MASK_DIR_PATH = '/kaggle/working/predicted_masks' # change this to the path to your output mask folder
 dir = MASK_DIR_PATH
 res = mask2string(dir)
 df = pd.DataFrame(columns=['Id', 'Expected'])

@@ -687,7 +687,7 @@ class UNetTestDataClass(Dataset):
 # In[111]:
 
 
-path = 'kaggle/input/bkai-igh-neopolyp/test/test/'
+path = '/kaggle/working/Unet_DL3/Ass3/kaggle/input/bkai-igh-neopolyp/test/test/'
 unet_test_dataset = UNetTestDataClass(path, transform)
 test_dataloader = DataLoader(unet_test_dataset, batch_size=8, shuffle=True)
 
@@ -730,8 +730,8 @@ for i in range(5):
 
 
 model.eval()
-if not os.path.isdir("kaggle/working/predicted_masks"):
-    os.mkdir("kaggle/working/predicted_masks")
+if not os.path.isdir("/kaggle/working/predicted_masks"):
+    os.mkdir("/kaggle/working/predicted_masks")
 for _, (img, path, H, W) in enumerate(test_dataloader):
     a = path
     b = img
@@ -744,7 +744,7 @@ for _, (img, path, H, W) in enumerate(test_dataloader):
         image_id = a[i].split('/')[-1].split('.')[0]
         filename = image_id + ".png"
         mask2img = Resize((h[i].item(), w[i].item()), interpolation=InterpolationMode.NEAREST)(ToPILImage()(F.one_hot(torch.argmax(predicted_mask[i], 0)).permute(2, 0, 1).float()))
-        mask2img.save(os.path.join("kaggle/working/predicted_masks/", filename))
+        mask2img.save(os.path.join("/kaggle/working/predicted_masks/", filename))
 
 
 # In[116]:
@@ -793,7 +793,7 @@ def mask2string(dir):
     return r
 
 
-MASK_DIR_PATH = 'kaggle/working/predicted_masks' # change this to the path to your output mask folder
+MASK_DIR_PATH = '/kaggle/working/predicted_masks' # change this to the path to your output mask folder
 dir = MASK_DIR_PATH
 res = mask2string(dir)
 df = pd.DataFrame(columns=['Id', 'Expected'])
