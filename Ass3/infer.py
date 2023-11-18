@@ -14,7 +14,7 @@ import os
 import pandas as pd
 import numpy as np
 from PIL import Image
-# import cv2
+import cv2
 import time
 import imageio
 import matplotlib.pyplot as plt
@@ -510,15 +510,15 @@ model = smp.Unet(
 # In[152]:
 
 
-# model = nn.DataParallel(model, device_ids=[0,1])  # Now cuda:1 is the primary device
-# model = model.to('cuda:0')  # Move model to cuda:1
+model = nn.DataParallel(model, device_ids=[0,1])  # Now cuda:1 is the primary device
+model = model.to('cuda:0')  # Move model to cuda:1
 # model = model.to('cpu')
 
 
 # In[153]:
 
 
-weights = torch.Tensor([[0.4, 0.55, 0.05]])
+weights = torch.Tensor([[0.4, 0.55, 0.05]]).cuda()
 loss_function = CEDiceLoss(weights)
 
 # Define the optimizer (Adam optimizer)
@@ -536,8 +536,6 @@ save_model(model, optimizer, checkpoint_path)
 
 
 # In[155]:
-
-
 
 # In[156]:
 
@@ -592,8 +590,6 @@ for epoch in range(epochs):
 #     valid_accuracy.append(test(test_loader))
 #     print("Epoch {}: loss: {:.4f}, train accuracy: {:.4f}, valid accuracy:{:.4f}".format(epoch + 1, 
 #                                         train_loss_array[-1], train_accuracy[-1], valid_accuracy[-1]))
-
-
 # # Plot the learning cure
 
 # **Infer**
